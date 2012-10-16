@@ -27,6 +27,8 @@ def transform_setup(setup):
 
 uk = Graph(transform_setup(setup))
 
-# At the moment, the printing is done internally. Should really be returning
-# the distance / path to be printed out here.
-find_best_route(uk, "Walsall", "Harpenden")
+# find_best_route() returns a Path object
+best_route = find_best_route(uk, "Walsall", "Harpenden")
+
+print("Least distance from Walsall to Harpenden is:", best_route.route_cost())
+print(best_route.route_string("->"))

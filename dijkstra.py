@@ -1,3 +1,5 @@
+from graph import Path
+
 #
 # Algorithm
 #
@@ -47,15 +49,13 @@ def find_best_route(graph, start, end):
 					node.distance = closest_node.distance + distance
 					reachable_unprocessed_nodes.add(node)
 					node.previous_node = closest_node
-					
-	if start is end:
-		route = str(start) + "->" + str(end)
-	else:
-		route = str(end)
-		current_node = graph.nodes[end]
-		while current_node.previous_node is not None:
-			route = str(current_node.previous_node) + "->" + route
-			current_node = current_node.previous_node
 
-	print("Least distance from", start, "to", end, "is:", graph.nodes[end].distance)
-	print("Example route is:", route)
+	# Create the path of the best route.
+	current_node = graph.nodes[end]
+	best_route = [current_node]
+	if start != end:
+		while current_node.previous_node is not None:
+			current_node = current_node.previous_node
+			best_route.insert(0, current_node)
+
+	return Path(best_route)
